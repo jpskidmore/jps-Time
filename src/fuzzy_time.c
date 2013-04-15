@@ -5,7 +5,7 @@
 
 #define MY_UUID { 0xD4, 0xED, 0x05, 0xFF, 0x75, 0x8B, 0x46, 0x6F, 0x80, 0xBF, 0x55, 0xFA, 0xD9, 0xCB, 0xAA, 0x3C }
 PBL_APP_INFO(MY_UUID,
-             "jps IT Fuzzy",
+             "jps Time",
              "jps IT ltd",
              1, 0, /* App version */
              DEFAULT_MENU_ICON,
@@ -50,7 +50,7 @@ static void handle_minute_tick(AppContextRef app_ctx, PebbleTickEvent* e) {
 static void handle_init(AppContextRef ctx) {
   (void) ctx;
 
-  window_init(&s_data.window, "jps IT Fuzzy");
+  window_init(&s_data.window, "jps Time");
   const bool animated = true;
   window_stack_push(&s_data.window, animated);
 
@@ -62,11 +62,11 @@ static void handle_init(AppContextRef ctx) {
     text_layer_init(&s_data.text_date_layer, s_data.window.layer.frame);
     text_layer_set_text_color(&s_data.text_date_layer, GColorWhite);
     text_layer_set_background_color(&s_data.text_date_layer, GColorClear);
-    layer_set_frame(&s_data.text_date_layer.layer, GRect(8, 0, 144-8, 32));
+    layer_set_frame(&s_data.text_date_layer.layer, GRect(0, 0, 144, 32));
     text_layer_set_font(&s_data.text_date_layer, datefont);
     layer_add_child(&s_data.window.layer, &s_data.text_date_layer.layer);
     
-  text_layer_init(&s_data.label, GRect(8, 35, s_data.window.layer.frame.size.w - 8, s_data.window.layer.frame.size.h - 35));
+  text_layer_init(&s_data.label, GRect(0, 35, s_data.window.layer.frame.size.w - 0, s_data.window.layer.frame.size.h - 35));
   text_layer_set_background_color(&s_data.label, GColorBlack);
   text_layer_set_text_color(&s_data.label, GColorWhite);
   text_layer_set_font(&s_data.label, timefont);
