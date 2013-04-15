@@ -2,12 +2,13 @@
 #include "pebble_app.h"
 #include "pebble_fonts.h"
 #include "num2words.h"
+#include "ctype.h"
 
 #define MY_UUID { 0xD4, 0xED, 0x05, 0xFF, 0x75, 0x8B, 0x46, 0x6F, 0x80, 0xBF, 0x55, 0xFA, 0xD9, 0xCB, 0xAA, 0x3C }
 PBL_APP_INFO(MY_UUID,
              "jps Time",
              "jps IT ltd",
-             1, 0, /* App version */
+             1, 1, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
@@ -39,7 +40,10 @@ static void update_time(PblTm* t) {
   
   fuzzy_time_to_words(t->tm_hour, t->tm_min, s_data.buffer, BUFFER_SIZE);
   text_layer_set_text(&s_data.label, s_data.buffer);
-  string_format_time(date_text, sizeof(date_text), "%e %B", t);
+  string_format_time(date_text, sizeof(date_text), "%a %e %b", t);
+  
+   /* for ( ; *date_text; ++date_text) *date_text = tolower(*date_text); */
+  
   text_layer_set_text(&s_data.text_date_layer, date_text);
 }
 
