@@ -2,7 +2,7 @@
 #include "string.h"
 
 static const char* const ONES[] = {
-  "nought",
+  "twelve",
   "one",
   "two",
   "three",
@@ -64,7 +64,7 @@ static size_t append_number(char* words, int num) {
     len += strlen(TENS[tens_val]);
     if (ones_val > 0) {
       strcat(words, " ");
-      len += 1;
+      len ++;
     }
   }
 
@@ -89,7 +89,7 @@ void fuzzy_time_to_words(int hours, int minutes, char* words, size_t length) {
   // Handle hour & minute roll-over.
   if (fuzzy_minutes > 55) {
     fuzzy_minutes = 0;
-    fuzzy_hours += 1;
+    fuzzy_hours ++;
     if (fuzzy_hours > 23) {
       fuzzy_hours = 0;
     }
@@ -133,14 +133,13 @@ void fuzzy_time_to_words(int hours, int minutes, char* words, size_t length) {
 
   if (fuzzy_hours == 0) {
     remaining -= append_string(words, remaining, STR_MIDNIGHT);
-  } else if (fuzzy_hours == 12) {
+  } else if (fuzzy_hours == 12 && fuzzy_minutes == 0) {
     remaining -= append_string(words, remaining, STR_NOON);
   } else {
     remaining -= append_number(words, fuzzy_hours % 12);
-  }
-
-  if (fuzzy_minutes == 0 && !(fuzzy_hours == 0 || fuzzy_hours == 12)) {
-    remaining -= append_string(words, remaining, " ");
-    remaining -= append_string(words, remaining, STR_OH_CLOCK);
+    if (fuzzy_minutes == 0) {
+          remaining -= append_string(words, remaining, " ");
+          remaining -= append_string(words, remaining, STR_OH_CLOCK);
+    }
   }
 }

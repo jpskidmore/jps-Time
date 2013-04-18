@@ -8,7 +8,7 @@
 PBL_APP_INFO(MY_UUID,
              "jps Time",
              "jps IT ltd",
-             1, 1, /* App version */
+             1, 2, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
