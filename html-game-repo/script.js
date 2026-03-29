@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');
 const scoreNode = document.getElementById('score');
 const bestNode = document.getElementById('best');
 const restartButton = document.getElementById('restart');
+const moveLeftButton = document.getElementById('move-left');
+const moveRightButton = document.getElementById('move-right');
 
 const width = canvas.width;
 const height = canvas.height;
@@ -39,6 +41,16 @@ function resetGame() {
   scoreNode.textContent = '0';
   restartButton.hidden = true;
   requestAnimationFrame(loop);
+}
+
+function movePlayer(direction) {
+  if (direction === 'left') {
+    player.lane = Math.max(0, player.lane - 1);
+  }
+
+  if (direction === 'right') {
+    player.lane = Math.min(laneCount - 1, player.lane + 1);
+  }
 }
 
 function drawLanes() {
@@ -178,15 +190,26 @@ function loop(timestamp) {
 
 function onKeyDown(event) {
   if (event.key === 'ArrowLeft' || event.key.toLowerCase() === 'a') {
-    player.lane = Math.max(0, player.lane - 1);
+    movePlayer('left');
   }
 
   if (event.key === 'ArrowRight' || event.key.toLowerCase() === 'd') {
-    player.lane = Math.min(laneCount - 1, player.lane + 1);
+    movePlayer('right');
   }
+}
+
+function onControlPress(direction) {
+  return (event) => {
+    event.preventDefault();
+    movePlayer(direction);
+  };
 }
 
 document.addEventListener('keydown', onKeyDown);
 restartButton.addEventListener('click', resetGame);
+moveLeftButton.addEventListener('pointerdown', onControlPress('left'));
+moveRightButton.addEventListener('pointerdown', onControlPress('right'));
+moveLeftButton.addEventListener('click', onControlPress('left'));
+moveRightButton.addEventListener('click', onControlPress('right'));
 
 resetGame();
