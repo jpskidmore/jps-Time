@@ -46,6 +46,29 @@ h1 {
   border: 2px solid #1e3a8a;
   background: linear-gradient(#0f172a, #020617);
   box-shadow: 0 20px 40px rgb(0 0 0 / 0.4);
+  touch-action: manipulation;
+}
+
+.touch-controls {
+  margin-top: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.control-button {
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 0.8rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  background: #0f172a;
+  cursor: pointer;
+}
+
+.control-button:active {
+  transform: translateY(1px);
 }
 
 #restart {
